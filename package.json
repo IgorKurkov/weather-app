@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "Weather app for display weather for certain city",
   "main": "gulpfile.js",
-  "dependencies": {},
+  "dependencies": {
+    "gulp-less": "^3.4.0"
+  },
   "devDependencies": {
     "browser-sync": "^2.23.3",
     "gulp": "^3.9.1",
     "gulp-notify": "^3.1.0",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "path": "^0.12.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
