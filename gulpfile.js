@@ -19,7 +19,7 @@ gulp.task('less', () => {
   return gulp.src('app/less/**/*.less')
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
-    }))
+    }).on("error", notify.onError()))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
