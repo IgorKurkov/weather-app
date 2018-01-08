@@ -4,6 +4,8 @@ var gulp        = require('gulp'),
     sass        = require('gulp-sass'),
     less        = require('gulp-less'),
     path        = require('path');
+    cssmin      = require('gulp-cssmin');
+    rename      = require('gulp-rename');
 
 gulp.task("start-server", () => {
   browserSync({
@@ -14,13 +16,15 @@ gulp.task("start-server", () => {
 gulp.task("reload", () => {
   browserSync.reload({stream: true});
 })
- 
+
 gulp.task('less', () => {
   // return gulp.src('app/less/**/*.less')
   return gulp.src('app/less/styles.less')
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }).on("error", notify.onError()))
+    .pipe(cssmin())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
