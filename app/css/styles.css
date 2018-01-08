@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Open Sans";
+  src: url("../libs/weather-icons/font/weathericons-regular-webfont.eot") format("eot"), url("../libs/weather-icons/font/weathericons-regular-webfont.svg") format("svg"), url("../libs/weather-icons/font/weathericons-regular-webfont.ttf") format("ttf"), url("../libs/weather-icons/font/weathericons-regular-webfont.woff") format("woff"), url("../libs/weather-icons/font/weathericons-regular-webfont.woff2") format("woff2");
+}
 #search-wrapper {
   width: 500px;
   margin: 0 auto;
