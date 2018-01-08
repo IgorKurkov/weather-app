@@ -1,4 +1,4 @@
-#search {
+#search-wrapper {
   width: 500px;
   margin: 0 auto;
   input[type=text] {
@@ -18,9 +18,46 @@
   }
 }
 
-#main-weather-block {
-  display: none;
+.main-block {
   width: 500px;
-  margin: 0 auto;
-  border: 1px solid
+  height: 500px;
+  position: relative;
+  margin: 20px auto 0;
+  border: 1px solid black;
+  &-icon {
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 100px;
+    left: 30px;
+  }
+
+  &-temp {
+    font-size: 80px;
+    position: absolute;
+    left: 140px;
+  }
+  &-info {
+    position: absolute;
+    font-size: 20px;
+    left: 340px;
+    top: 120px;
+
+  }
+  .forecast-days{
+    height: 180px;
+    position: absolute;
+    bottom: 0px;
+    outline: 1px solid black;
+    display: flex;
+    &-item {
+      width: 100px;
+      height: 180px;
+      outline: 1px solid black;
+      position: relative;
+      bottom: 0px;
+    }
+  }
+
 }
