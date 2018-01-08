@@ -1,3 +1,5 @@
+import { getWeatherIcon } from './_lib.js'
+
 
 //request
 let buildRequestUrl = (city, deg) => {
@@ -17,7 +19,7 @@ const searchWeather = (city, deg) => {
       });
 };
 
-const input         = document.querySelector(".search");
+const input    = document.querySelector(".search");
 const forecast = document.querySelector(".forecast-days");
 
 const listenForInput = () => {
@@ -56,8 +58,5 @@ const renderWeather = (data) => {
 }
 // searchWeatherForCity(buildRequestUrl("kiev", "celsius"));
 
-
-
-//push data to dom
 //make recent block
 //push current city to recent block
