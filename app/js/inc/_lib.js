@@ -1,4 +1,4 @@
-
+// _lib.js module
 
 export function getWeatherIcon(weatherCode) {
   let icon = '';
