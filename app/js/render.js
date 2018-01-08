@@ -1,5 +1,6 @@
-import { getWeatherIcon } from './inc/_lib.js'
 import { selectors } from './inc/_selectors.js'
+import { getWeatherIcon } from './inc/_lib.js'
+
 
 export const renderWeather = (data) => {
   let weather = data.query.results.channel;
