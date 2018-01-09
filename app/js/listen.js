@@ -1,23 +1,33 @@
 import { selectors } from './inc/_selectors.js'
 
-export const isInputPopulate = (request, render) => {
-  let city = isCityInUrl();
-  if (city) {
-    request.searchWeather(city, "celsius", render.renderWeather);
-    selectors.input.value = city;
-  } 
-  else {
-    selectors.input.addEventListener('keyup', (event) => {
-      if (event.keyCode === 13) {
-        if(selectors.input.value.length == 0) { 
-          console.log("you dont type city"); return;
-        } else {
-          request.searchWeather(selectors.input.value, "celsius", render.renderWeather)
+const degrees = "celsius";
 
-          }
+export const isInputPopulate = (request, render, storage) => {
+  let urlCity = isCityInUrl();
+  if (urlCity) {
+    request.searchWeather(urlCity, degrees, render.renderWeather);
+    selectors.input.value = urlCity;
+  } 
+
+  selectors.input.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      let inputCity = selectors.input.value;
+      if(inputCity.length == 0) { 
+        console.log("you dont type city"); return;
+      } else {
+        populateCityToUrl(inputCity);
+        request.searchWeather(inputCity, degrees, render.renderWeather)
+        }
       }
-    });
-  }
+  });
+}
+
+const populateCityToUrl = (city) => {
+  //https://stackoverflow.com/a/19279428/9026103
+  if (history.pushState) { 
+    var newurl = window.location.origin + window.location.pathname + "?="+ city;;
+    window.history.pushState({ path:newurl }, '', newurl );
+  } 
 }
 
 const isCityInUrl = () => {
