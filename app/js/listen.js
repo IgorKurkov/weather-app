@@ -7,7 +7,6 @@ export const isInputPopulate = (request, render) => {
   let urlCity = isCityInUrl();
   if (urlCity) {
     selectors.input.value = urlCity; //inputValue
-    storage.addCityActivity(urlCity);
     request.searchWeather(urlCity, degrees, render.renderWeather);
   } 
 
@@ -18,13 +17,14 @@ export const isInputPopulate = (request, render) => {
         console.log("you dont type city"); return;
       } else {
         populateCityToUrl(inputCity);
-        storage.addCityActivity(inputCity);
+        selectors.input.blur();
         request.searchWeather(inputCity, degrees, render.renderWeather);
         }
       }
   });
 
   selectors.buttonAddToFavorites.addEventListener("click", (event) => {
+    console.log(selectors.buttonAddToFavorites) 
     if(selectors.input.value){
       storage.addCityActivity(selectors.input.value, "add");
     }
@@ -33,9 +33,7 @@ export const isInputPopulate = (request, render) => {
   selectors.buttonClearActivity.addEventListener("click", (event) => {
     storage.clearStorage();
   });
-  
 }
-
 
 
 const populateCityToUrl = (city) => {

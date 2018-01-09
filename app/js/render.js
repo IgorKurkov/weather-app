@@ -2,11 +2,30 @@ import { selectors } from './inc/_selectors.js'
 import { getWeatherIcon } from './inc/_lib.js'
 import * as storage  from './storage.js'
 
-export const renderWeather = (data) => {
-  let weather = data.query.results.channel;
-  renderTodayBlock(weather);
-  let forecast = weather.item.forecast;
-  renderForecastDaysBlocks(forecast); 
+export const renderWeather = (data, typedCity) => {
+  if(data.query.results === null){ 
+    renderModalPopup("This city is <br><br> not supported", "error");
+    
+  } 
+  else {
+    storage.addCityActivity(typedCity);
+    let weather = data.query.results.channel;
+    renderTodayBlock(weather);
+    let forecast = weather.item.forecast;
+    renderForecastDaysBlocks(forecast); 
+  } 
+}
+
+const renderModalPopup = (text, type) => {
+  selectors.modalPopupBlock.innerHTML = `<div class="message ${type}">${text}</div>`;
+  selectors.modalPopupBlock.style.opacity = "1";
+  selectors.modalPopupBlock.style.zIndex = "100";
+  setTimeout(() => {
+    selectors.modalPopupBlock.style.opacity = "0";
+    selectors.modalPopupBlock.style.zIndex = "-100";
+    selectors.input.value = "";
+    selectors.input.focus();
+  }, 2000)
 }
 
 const buildDayBlock = (obj) => {
@@ -35,7 +54,8 @@ const renderTodayBlock = (obj) => {
 }
 
 let cities = storage.citiesInStorage.list;
-const buildRecentCities = () => {
+
+export const buildRecentCities = () => {
   selectors.recentBlock.innerHTML = "";
   if(cities.length) {
   cities.forEach((city) => {

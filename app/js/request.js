@@ -8,10 +8,16 @@ const buildRequestUrl = (city, deg) => {
   return url + query + getCityWoeid + setDegree + format;
 };
 
-export const searchWeather = (city, deg, callback) => {
-  fetch(buildRequestUrl(city, deg))
-    .then((r) => { return r.json(); })
+export const searchWeather = (typedCity, deg, callback) => {
+  fetch(buildRequestUrl(typedCity, deg))
+    .then((r) => { 
+      if(r.ok) return r.json();
+      throw new Error('Network response was not ok.');
+       })
       .then((data) => {
-        callback(data);
-      });
+          callback(data, typedCity);
+        })
+        .catch(function(error) {
+          console.log('There has been a problem with your fetch operation: ' + error.message);
+        });
 };

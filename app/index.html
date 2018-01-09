@@ -4,27 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.yellow-blue.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/styles.min.css">
   <title>Weather app</title>
 </head>
 <body>
+<div class="modal"></div>
+
   <div id="container">
-      <button class="clear-activity">Clear all</button>
+    <div class="wrapper">
+      <h2 class="title">Wow weather!</h2>
+    </div>
     <div id="search-wrapper">
-      <input class="search" type="text" name="search" placeholder="Type city and press enter..">
+      <input autofocus class="search" type="text" name="search" placeholder="Type city and press enter..">
       <div class="recent-cities"></div>
     </div>
+
     <div class="main-block"> 
-      <button class="add-to-favorites">==ADD==</button>
+      <div class="add-to-favorites"><i class="fa fa-heart-o" aria-hidden="true"></i></div>
       <div class="main-block-city"></div>
       <div class="main-block-icon"></div>
       <div class="main-block-temp"></div>
       <div class="main-block-info"></div>
-      <div class="forecast-days"></div>
-      <div class="favorite-cities"></div>
+      <div class="forecast-wrapper">      
+        <div class="forecast-days"></div>
       </div>
-      
+
     </div>
+
+    <!-- <div class="favorites-block"> -->
+      <div class="favorite-wrapper">
+          <button class="clear-activity">Clear all</button>
+          <div class="favorite-cities"></div>
+      </div>
+    <!-- </div> -->
+  </div>
+  
     
   </div>
   <script src="js/app.js" type="module"></script>
