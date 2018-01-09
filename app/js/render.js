@@ -1,6 +1,6 @@
 import { selectors } from './inc/_selectors.js'
 import { getWeatherIcon } from './inc/_lib.js'
-
+import * as storage  from './storage.js'
 
 export const renderWeather = (data) => {
   let weather = data.query.results.channel;
@@ -34,3 +34,33 @@ const renderTodayBlock = (obj) => {
   document.querySelector(".main-block-info").innerHTML = obj.item.condition.text;
 }
 
+let cities = storage.citiesInStorage.list;
+const buildRecentCities = () => {
+  selectors.recentBlock.innerHTML = "";
+  if(cities.length) {
+  cities.forEach((city) => {
+    selectors.recentBlock.innerHTML += 
+          `<a href="?=${city.name}" class="recent">
+              ${city.name}<sup>(${city.searchTimes})</sup>
+          </a>`;
+    });
+  }
+}
+
+const buildFavoriteCities = () => {
+  selectors.favoriteBlock.innerHTML = "";
+  if(cities.length) {
+    cities.filter((obj) => { return obj.favorite == true;})
+    .forEach((city) => {
+      selectors.favoriteBlock.innerHTML += 
+            `<a href="?=${city.name}" class="favorite">
+                ${city.name}<sup>(${city.searchTimes})</sup>
+            </a>`;
+      });
+ }
+}
+
+export const renderCities = () => {
+  buildRecentCities()
+  buildFavoriteCities();
+}

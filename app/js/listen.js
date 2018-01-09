@@ -1,26 +1,42 @@
 import { selectors } from './inc/_selectors.js'
+import * as storage  from './storage.js'
 
 const degrees = "celsius";
 
-export const isInputPopulate = (request, render, storage) => {
+export const isInputPopulate = (request, render) => {
   let urlCity = isCityInUrl();
   if (urlCity) {
+    selectors.input.value = urlCity; //inputValue
+    storage.addCityActivity(urlCity);
     request.searchWeather(urlCity, degrees, render.renderWeather);
-    selectors.input.value = urlCity;
   } 
 
   selectors.input.addEventListener('keyup', (event) => {
     if (event.keyCode === 13) {
-      let inputCity = selectors.input.value;
+      let inputCity = selectors.input.value; //inputValue
       if(inputCity.length == 0) { 
         console.log("you dont type city"); return;
       } else {
         populateCityToUrl(inputCity);
-        request.searchWeather(inputCity, degrees, render.renderWeather)
+        storage.addCityActivity(inputCity);
+        request.searchWeather(inputCity, degrees, render.renderWeather);
         }
       }
   });
+
+  selectors.buttonAddToFavorites.addEventListener("click", (event) => {
+    if(selectors.input.value){
+      storage.addCityActivity(selectors.input.value, "add");
+    }
+  });
+
+  selectors.buttonClearActivity.addEventListener("click", (event) => {
+    storage.clearStorage();
+  });
+  
 }
+
+
 
 const populateCityToUrl = (city) => {
   //https://stackoverflow.com/a/19279428/9026103
