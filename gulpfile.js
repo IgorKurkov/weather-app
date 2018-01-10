@@ -43,3 +43,35 @@ gulp.task("default", ["less", "start-server"], () => {
 //       .pipe(gulp.dest('app/css'))
 //       .pipe(browserSync.reload({stream: true}));
 // });
+
+
+
+var sourceDir = './src';
+var buildDir = './build';
+ 
+var Del = require('del');
+var ESLlint = require('gulp-eslint');
+var Sourcemaps = require('gulp-sourcemaps');
+var Export = require('gulp-export');
+var Babel = require('gulp-babel');
+ 
+gulp.task('clean', cb => {
+  return Del([buildDir], cb);
+});
+ 
+gulp.task('js-compile', ['clean'], function() {
+  return gulp.src([`${sourceDir}/**/*.js`])
+    // .pipe(ESLlint())
+    // .pipe(ESLlint.format())
+    // .pipe(ESLlint.failAfterError())
+    .pipe(Export({
+        context: './src',
+        exclude: /_/,           // excluded all files with underscore
+        exportType: 'default',  // export as default can be: named, default and global
+    }))
+    .pipe(Sourcemaps.init())
+    .pipe(Babel())
+    .pipe(Sourcemaps.write('.'))
+    .pipe(gulp.dest(buildDir));
+});
+ 
