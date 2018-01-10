@@ -15,10 +15,10 @@ export const searchWeather = (typedCity, deg, callback) => {
       throw new Error('Network response was not ok.');
        })
       .then((data) => {
-        console.log(data)
+        console.log(data);
           callback(data, typedCity);
-        })
-        .catch(function(error) {
-          console.log('There has been a problem with your fetch operation: ' + error.message);
         });
+        // .catch(function(error) {
+        //   console.log('There has been a problem with your fetch operation: ' + error.message);
+        // });
 };

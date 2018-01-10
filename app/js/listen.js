@@ -7,6 +7,8 @@ const degrees = "celsius";
 export const isInputPopulate = (request, render) => {
   let urlCity = isCityInUrl();
   if (urlCity) {
+    selectors.favoriteWrapper.style.display = "block";
+    selectors.mainBlock.style.display       = "block";
     selectors.input.value = urlCity; //inputValue
     request.searchWeather(urlCity, degrees, render.renderWeather);
   } 
@@ -32,9 +34,11 @@ export const isInputPopulate = (request, render) => {
       }
     });
 
+
   selectors.input.addEventListener('keyup', (event) => {
-    
     if (event.keyCode === 13) {
+      selectors.favoriteWrapper.style.display = "block";
+      selectors.mainBlock.style.display       = "block";
       autocomplete.style.visibility = "hidden";
       let inputCity = selectors.input.value; //inputValue
       if(inputCity.length == 0) { 
@@ -51,8 +55,17 @@ export const isInputPopulate = (request, render) => {
 
   selectors.buttonAddToFavorites.addEventListener("click", (event) => {
     console.log(selectors.buttonAddToFavorites) 
-    if(selectors.input.value){
-      storage.addCityActivity(selectors.input.value, "add");
+    let city = selectors.input.value;
+    if(selectors.input.value){    
+      if (storage.isCityFavorite(city) == false) {
+        storage.addCityActivity(city, "add");
+        render.renderModalPopup("City "+selectors.input.value+" saved!", "saved");
+      } else {
+        storage.addCityActivity(city, "remove");
+        render.renderModalPopup("City "+selectors.input.value+" deleted!", "deleted");
+      }
+      
+      
     }
   });
   
@@ -60,15 +73,15 @@ export const isInputPopulate = (request, render) => {
     storage.clearStorage();
   });
 
+  selectors.forecastBlock.addEventListener("click", (event) => {
+    render.modifyTodayBlock(event);
+  });
+
   selectors.input.addEventListener("click", (event) => { //if clicks input=>select text inside
     autocomplete.style.visibility = "inherit";
     selectors.input.focus();
     $(selectors.input).select();
   });
-
-
-
-
 
 }
 
