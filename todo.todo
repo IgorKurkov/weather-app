@@ -1,0 +1,21 @@
+✔ build request url query @done (2018-1-8 02:07:14)
+✔ make response for getting data @done (2018-1-8 02:07:20)
+✔ get degrees, city, icon, for main block @done (2018-1-8 16:21:49)
+✔ get forecast values for small day blocks @done (2018-1-8 16:21:45)
+✔ make render foo in fetch data promise @done (2018-1-8 16:21:42)
+✔ render includes - add all values to dom @done (2018-1-8 16:21:54)
+✔ draw concepts @done (2018-1-8 02:23:30)
+✔ modules js - components exports @done (2018-1-8 16:21:57)
+✔ query request and url recognition @done (2018-1-10 05:38:56)
+✔ data and localStorage @done (2018-1-10 05:38:57)
+✔ render veb view @done (2018-1-10 05:38:58)
+☐ responsive mobile first
+✔ controls for favorite @done (2018-1-10 05:39:02)
+✔ recent @done (2018-1-10 05:39:08)
+✔ favorite @done (2018-1-10 05:39:09)
+✔ slidable blocks and appearing days @done (2018-1-10 05:39:15)
+☐ change language l18n
+☐ celsius fahrenheit choosing
+☐ mobile devices
+☐ adding to favorites css effect
+☐ sliding effect for cards

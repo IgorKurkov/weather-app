@@ -11,6 +11,7 @@ export const isInputPopulate = (request, render) => {
     request.searchWeather(urlCity, degrees, render.renderWeather);
   } 
 
+  //https://github.com/zhem4ag/jquery_cityAutocomplete
   $('input.search').cityAutocomplete({ /* show_state: true, */ show_country: true});
   const autocomplete = document.querySelector("div.city-autocomplete");
   autocomplete.style.visibility = "inherit";
@@ -64,6 +65,10 @@ export const isInputPopulate = (request, render) => {
     selectors.input.focus();
     $(selectors.input).select();
   });
+
+
+
+
 
 }
 

@@ -1,6 +1,9 @@
 @import 'includes/_fonts';
 @import 'includes/_libs';
 
+body {
+  background-color: #d6e6ff;
+}
 
 .eachWrapperPropertires {
   position: relative;
@@ -26,6 +29,7 @@
   padding: 60px;
   background-color: rgb(231, 240, 231);
   box-shadow: 0px 17px 36px 2px rgba(0,0,0,0.64);
+  // box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
   transition: .5s ease;
 
   .message {
@@ -41,16 +45,20 @@
     .eachBlockProperties();
     box-sizing: border-box;
     border: none;
-    background-color: white;
+    background-color: rgb(245, 245, 245);
     padding: 12px 20px;
-    transition: .3s ease-in-out;
+    transition: .2s ease-in-out;
     text-align: center;
     font-size: 35px;
     text-transform: capitalize;
+    border-radius: 8px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+
     &:focus {
       border: 2px solid #ccc;
       border-radius: 4px;
       font-size: 30px;
+      background-color: white;
     }
   }
   .recent-cities {
@@ -58,6 +66,7 @@
     padding: 10px 0;
   }
 }
+
 .city-autocomplete > div {
   font-size: 22px ;
   padding: 12px;
@@ -68,18 +77,20 @@
   font-size: 15px;
   margin: 0 10px;
 }
+
 #container {
   .eachWrapperPropertires();
 
   .wrapper {
     .eachWrapperPropertires();
-    margin-top: 30px;
     .title {
       .eachBlockProperties();
       text-align: center;
     }
   }
   .main-block {
+    background-color: rgba(76, 142, 255, 0.144);
+    // overflow: hidden;
     .eachBlockProperties();
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 
@@ -99,47 +110,105 @@
         }
       }
     }
+    &-city {
+      font-size: 20px;
+      padding: 20px;
+    }
     &-icon {
-      background-color: blue;
-      width: 100px;
-      height: 100px;
+      font-size: 110px;
+      color: #4C8FFF;
+      // width: 100px;
+      // height: 100px;
       position: relative;
-      top: 100px;
-      left: 30px;
+      top: 0px;
+      left: 20px;
     }
     &-temp {
-      font-size: 80px;
+      font-size: 100px;
       position: absolute;
-      left: 140px;
+      left: 130px;
     }
     &-info {
       position: absolute;
       font-size: 20px;
       left: 340px;
       top: 120px;
+      .condition {
+        font-size: 30px;
+        padding-bottom: 10px;
+        display: block;
+        font-weight: bold;
+      }
+      .addition {
+        display: block;
+      }
     }  
   
     .forecast-wrapper { 
-    overflow: hidden;
-    width: 100%; 
-    .forecast-days {
-      border-top: 1px solid black;
-      -webkit-overflow-scrolling: touch;
-      overflow-x: auto; 
-      height: 200px;
       position: absolute;
-      bottom: 0px;
-      display: flex;
-      
-      &-item {
-        padding: 0 30px;
-        width: 220px;
-        height: 180px;
-        outline: 1px solid black;
-        position: relative;
+      bottom: 0;
+      width: 540px;
+      // .arrows {
+      //   position: absolute;
+      //   top: 30%;
+      //   padding: 10px 0;
+      //   font-size: 50px; 
+      //   &:hover {
+      //     color: rgb(172, 172, 172);
+      //   } 
+      //   &:active {
+      //     color: #4C8FFF;
+      //   }
+      // }
+      // .fa-caret-left {
+      //   left: -22px;
+      //   .arrows();
+      // }
+      // .fa-caret-right {
+      //   right: -22px;
+      //   .arrows
+      // }
+      .forecast-days {
+        width: 100%; 
+        margin: 0 auto; 
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto; 
+        // overflow-x: hidden;
+        height: 200px;
         bottom: 0px;
+        display: flex;        
+        
+        &-item {
+          background-color: #F5F5F5;
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+          padding: 0 29px;
+          width: 50px;
+          height: 175px;
+          margin: 3px;
+          position: relative;
+          bottom: 0px;
+          text-align: center;
+          .wi {
+            font-size: 30px;
+            color:#4C8FFF;
+            margin: 5px;
+          }
+          .days-date{
+            padding-top: 10px;
+            display: block;
+            font-size: 14px;
+
+          }
+          .days-high {
+            padding-top: 10px;
+            font-size: 30px;
+            display: block;
+          }
+          .days-low {
+            font-size: 14px;
+          }
+          }
         }
-      }
     }
   }
 
@@ -148,12 +217,15 @@
     margin-top: 10px;
     .favorite-cities {
       .eachBlockProperties();
-      position: absolute;
+
       padding: 10px 0;
+
     }
     button.clear-activity {
-      position: absolute;
-      right: 5%;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+      width: 30%;
+      margin-left: 35%;
+      margin-right: 35%;
 
       background-color: #4CAF50; /* Green */
       border: none;

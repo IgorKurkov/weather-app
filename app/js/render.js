@@ -31,7 +31,7 @@ const renderModalPopup = (text, type) => {
 const buildDayBlock = (obj) => {
   let day = document.createElement("div");
   day.classList.add("forecast-days-item");
-  day.innerHTML = `<span class="days-date">${obj.date}</span>
+  day.innerHTML = `<span class="days-date">${obj.date.substring(0,7)}</span>
                    <span class="days-icon">${getWeatherIcon(obj.code)}</span>
                    <span class="days-high">${obj.high}</span>
                    <span class="days-low" >${obj.low} </span>
@@ -47,10 +47,19 @@ const renderForecastDaysBlocks = (nextDays) => {
   });
 }
 
+const convertToCelcius = (F) => {
+  return (5/9) * (F - 32);
+}
 const renderTodayBlock = (obj) => {
-  document.querySelector(".main-block-city").innerHTML = obj.location.city;
+  document.querySelector(".main-block-city").innerHTML = obj.location.country +", "+ obj.location.region;
+  document.querySelector(".main-block-icon").innerHTML = getWeatherIcon(obj.item.condition.code);
   document.querySelector(".main-block-temp").innerHTML = obj.item.condition.temp;
-  document.querySelector(".main-block-info").innerHTML = obj.item.condition.text;
+  document.querySelector(".main-block-info").innerHTML = 
+     `<span class="condition">${obj.item.condition.text}</span> <br> 
+      <span class="addition">
+        Fill ${Math.ceil(convertToCelcius(obj.wind.chill))} C<br>
+        Hudimity: ${obj.atmosphere.humidity}%
+      </span>`;
 }
 
 let cities = storage.citiesInStorage.list;

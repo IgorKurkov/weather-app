@@ -6,4 +6,6 @@
   buttonAddToFavorites: document.querySelector(".add-to-favorites .fa"),
   buttonClearActivity: document.querySelector(".clear-activity"),
   modalPopupBlock: document.querySelector(".modal"),
+  // leftControl: document.querySelector(".fa-caret-left"),
+  // rightControl: document.querySelector(".fa-caret-right"),
 }
