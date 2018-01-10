@@ -1,6 +1,7 @@
 @import 'includes/_fonts';
 @import 'includes/_libs';
 
+
 .eachWrapperPropertires {
   position: relative;
   width: 600px;
@@ -44,12 +45,12 @@
     padding: 12px 20px;
     transition: .3s ease-in-out;
     text-align: center;
-    font-size: 30px;
+    font-size: 35px;
     text-transform: capitalize;
     &:focus {
       border: 2px solid #ccc;
       border-radius: 4px;
-      font-size: 25px;
+      font-size: 30px;
     }
   }
   .recent-cities {
@@ -57,11 +58,22 @@
     padding: 10px 0;
   }
 }
+.city-autocomplete > div {
+  font-size: 22px ;
+  padding: 12px;
+}
+.city-autocomplete > div > .country {
+  pointer-events: none; 
+  color: #555;
+  font-size: 15px;
+  margin: 0 10px;
+}
 #container {
   .eachWrapperPropertires();
 
   .wrapper {
     .eachWrapperPropertires();
+    margin-top: 30px;
     .title {
       .eachBlockProperties();
       text-align: center;

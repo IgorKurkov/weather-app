@@ -1,5 +1,5 @@
  export const selectors = {
-  input: document.querySelector(".search"),
+  input: document.querySelector("input.search"),
   forecastBlock: document.querySelector(".forecast-days"),
   recentBlock: document.querySelector(".recent-cities"),
   favoriteBlock: document.querySelector(".favorite-cities"),
