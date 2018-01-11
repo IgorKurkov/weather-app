@@ -6,7 +6,7 @@ Very interesting final project of [10 task](https://github.com/kottans/frontend/
 
 - [x] autocomplete (contains) search of cities on either languages (cyrillic or latin or arabic whatever)
 - [x] allowed url queries and browser navigation history
-- [x] saves cities for you even you close browser
+- [x] Extra: Saves cities for you, even if you shut down (!) Browser
 - [x] recent cities / add to favorite cities / clear cities
 - [x] count of searches for even city
 - [x] ES6 modular frontend application
