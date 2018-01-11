@@ -28,6 +28,8 @@ export const isInputPopulate = (request, render) => {
       if(autocompleteCity.length == 0) { 
         console.log("you dont type city"); return;
       } else {
+        selectors.favoriteWrapper.style.display = "block";
+        selectors.mainBlock.style.display       = "block";
         populateCityToUrl(autocompleteCity);
         selectors.input.blur();
         request.searchWeather(autocompleteCity, degrees, render.renderWeather);
