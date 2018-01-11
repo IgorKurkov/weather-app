@@ -6,6 +6,9 @@ var gulp        = require('gulp'),
     path        = require('path'),
     cssmin      = require('gulp-cssmin'),
     rename      = require('gulp-rename'),
+    uglify      = require('gulp-uglify'),
+    concat      = require("gulp-concat"),
+    gulpCopy    = require('gulp-copy'),
 ///////////////////////////////
     fs          = require('fs'),
     browserify  = require('browserify'),
@@ -18,12 +21,6 @@ var gulp        = require('gulp'),
     change      = require('gulp-change');
 
     
-    
-    
-
-
-
-
 gulp.task("start-server", () => {
   browserSync({
     server: {baseDir: "app"},
@@ -40,7 +37,6 @@ gulp.task('less', () => {
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }).on("error", notify.onError()))
-    .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
@@ -55,19 +51,8 @@ gulp.task("default", ["less", "start-server"], () => {
 })
 
 
-// gulp.task('sass', () => {
-//   return gulp.src('app/sass/**/*+(.sass|.scss)')
-//       .pipe(sass().on("error", notify.onError()))
-//       .pipe(gulp.dest('app/css'))
-//       .pipe(browserSync.reload({stream: true}));
-// });
 
-// gulp.task("build-html", () => {
-//   return gulp.src('app/index.html')
-
-//   .pipe(gulp.dest('./dist/'))
-// });
-
+///build
 gulp.task('build-html', function() {
   return gulp.src('app/index.html')
       .pipe(change((content) => {
@@ -76,9 +61,28 @@ gulp.task('build-html', function() {
       .pipe(gulp.dest('dist/'))
 });
 
+gulp.task('build-css', function() {
+  return gulp.src([
+    'app/css/**/*.css',  
+    "app/libs/weather-icons/css/weather-icons.min.css", 
+  ])
+  .pipe(concat('styles.min.css'))
+  .pipe(cssmin())
+  .pipe(gulp.dest('dist/css/'))
+});
+
+gulp.task('build-libs', function() {
+return gulp.src('app/libs/**/*')
+    .pipe(gulpCopy('dist/', {prefix: 1}))
+    .pipe(gulp.dest('dist/libs/'));
+  });
 
 
-////////=== transpile JS modules to single js file  ===//////////
+gulp.task('build-all', ['build-libs', 'build-html', 'build-css', 'build-js'], () => {
+  sleep(1);
+});
+
+////////=== transpile ==JS== modules to single js file  ===//////////
 //https://github.com/thoughtram/es6-babel-browserify-boilerplate
 var config = {
   entryFile: './app/js/app.js',
@@ -111,7 +115,7 @@ function bundle() {
 gulp.task('build-persistent', ['clean'], function() {
   return bundle();
 });
-gulp.task('build', ['build-persistent'], function() {
+gulp.task('build-js', ['build-persistent'], function() {
   process.exit(0);
 });
 gulp.task('watch', ['build-persistent'], function() {
@@ -126,14 +130,12 @@ gulp.task('watch', ['build-persistent'], function() {
   });
 });
 
-// WEB SERVER
-// gulp.task('serve', function () {
-//   browserSync({
-//     server: {
-//       baseDir: './'
-//     }
-//   });
-// });
 ///////////////////////////////////////////
 
 
+// gulp.task('sass', () => {
+//   return gulp.src('app/sass/**/*+(.sass|.scss)')
+//       .pipe(sass().on("error", notify.onError()))
+//       .pipe(gulp.dest('app/css'))
+//       .pipe(browserSync.reload({stream: true}));
+// });
