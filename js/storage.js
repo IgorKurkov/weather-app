@@ -44,7 +44,6 @@ export const isCityFavorite = (city) => {
 }
 
 const updateCity = (alreadyExistCity, isFavorite) => {
-  debugger
   if(!isFavorite) { 
     alreadyExistCity.searchTimes++; 
   }
