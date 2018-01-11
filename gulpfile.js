@@ -3,10 +3,26 @@ var gulp        = require('gulp'),
     notify      = require('gulp-notify'),
     sass        = require('gulp-sass'),
     less        = require('gulp-less'),
-    path        = require('path');
-    cssmin      = require('gulp-cssmin');
-    rename      = require('gulp-rename');
-    concat      = require('concat');
+    path        = require('path'),
+    cssmin      = require('gulp-cssmin'),
+    rename      = require('gulp-rename'),
+///////////////////////////////
+    fs          = require('fs'),
+    browserify  = require('browserify'),
+    watchify    = require('watchify'),
+    babelify    = require('babelify'),
+    rimraf      = require('rimraf'),
+    source      = require('vinyl-source-stream'),
+    _           = require('lodash'),
+    reload      = browserSync.reload,
+    change      = require('gulp-change');
+
+    
+    
+    
+
+
+
 
 gulp.task("start-server", () => {
   browserSync({
@@ -39,7 +55,6 @@ gulp.task("default", ["less", "start-server"], () => {
 })
 
 
-
 // gulp.task('sass', () => {
 //   return gulp.src('app/sass/**/*+(.sass|.scss)')
 //       .pipe(sass().on("error", notify.onError()))
@@ -47,104 +62,78 @@ gulp.task("default", ["less", "start-server"], () => {
 //       .pipe(browserSync.reload({stream: true}));
 // });
 
+// gulp.task("build-html", () => {
+//   return gulp.src('app/index.html')
 
-
-var sourceDir = './app/js';
-var buildDir = './build';
- 
-var Del = require('del');
-var ESLlint = require('gulp-eslint');
-var sourcemaps = require('gulp-sourcemaps');
-var Export = require('gulp-export');
-var Babel = require('gulp-babel');
- 
-gulp.task('clean', cb => {
-  return Del([buildDir], cb);
-});
- 
-gulp.task('js-compile', ['clean'], function() {
-  return gulp.src([`${sourceDir}/**/*.js`])
-    // .pipe(ESLlint())
-    // .pipe(ESLlint.format())
-    // .pipe(ESLlint.failAfterError())
-    .pipe(Export({
-        context: './src',
-        exclude: /_/,           // excluded all files with underscore
-        exportType: 'default',  // export as default can be: named, default and global
-    }))
-    .pipe(sourcemaps.init())
-    .pipe(Babel({
-      presets: ['es2015']
-    }))
-    .pipe(concat("main.js"))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(buildDir));
-});
- 
-
-// var transpile  = require('gulp-es6-module-transpiler');
- 
-// gulp.task('build', function() {
-//     return gulp.src('src/**/*.js')
-//         .pipe(sourcemaps.init())
-//         .pipe(transpile({
-//             formatter: 'bundle'
-//         }))
-//         .pipe(sourcemaps.write('./'))
-//         .pipe(gulp.dest('lib'));
-//  })
-
-
-
- var babel = require('gulp-babel');
-//     browserify = require('browserify'),
-//     source = require('vinyl-source-stream'),
-//     buffer = require('vinyl-buffer'),
-//     rename = require('gulp-rename'),
-//     uglify = require('gulp-uglify'),
-//     del = require('del');
-// var recast = require('recast');
-
-// gulp.task('clean-temp', function(){
-//   return del(['dest2']);
+//   .pipe(gulp.dest('./dist/'))
 // });
 
-// gulp.task('es6-commonjs',['clean-temp'], function(){
-//   return gulp.src(['app/js/**/*.js'])
-//     .pipe(babel({
-//       presets: ['es2015']
-//     }))
-//     .pipe(gulp.dest('dist2/'));
-// });
-
-
-// var babelify = require("babelify");
-
-// var browserify = require('gulp-browserify');
-// Basic usage 
-// Basic usage 
-
-gulp.task('scripts', function() {
-  // Single entry point to browserify 
-  return gulp.src('app/js/**/*.js')
-      .pipe(babel({
-        presets: ["es2015"]
-      }))
-      // .pipe(concat('all.js'))
-      .pipe(gulp.dest('./build/'));
+gulp.task('build-html', function() {
+  return gulp.src('app/index.html')
+      .pipe(change((content) => {
+        return content.replace(/type\=\"module\"/g, '');
+        }))
+      .pipe(gulp.dest('dist/'))
 });
 
 
-// gulp.task('bundle', function() {
-//     gulp.src(['app/js/**/*.js']) // entry point
-//         .pipe(browserify({ debug: true }))
-//         .pipe(gulp.dest('./dist2'))
-// });
 
-// gulp.task('es6-compile', function() {
-//   browserify({ debug: true })
-//     .transform(babelify.configure({ ["es2015","react", "stage-0"],"react", "stage-0"] }))
-//     .require('./app/js/**/*.js', { entry: true })
-//     .bundle()
-//     .pipe(gulp.dest('./public/dest/javascripts'));
+////////=== transpile JS modules to single js file  ===//////////
+//https://github.com/thoughtram/es6-babel-browserify-boilerplate
+var config = {
+  entryFile: './app/js/app.js',
+  outputDir: './dist/js',
+  outputFile: 'app.js'
+};
+// clean the output directory
+gulp.task('clean', function(cb){
+    rimraf(config.outputDir, cb);
+});
+
+var bundler;
+function getBundler() {
+  if (!bundler) {
+    bundler = watchify(browserify(config.entryFile, _.extend({ debug: true }, watchify.args)));
+  }
+  return bundler;
+};
+
+function bundle() {
+  return getBundler()
+    .transform(babelify)
+    .bundle()
+    .on('error', function(err) { console.log('Error: ' + err.message); })
+    .pipe(source(config.outputFile))
+    .pipe(gulp.dest(config.outputDir))
+    .pipe(reload({ stream: true }));
+}
+
+gulp.task('build-persistent', ['clean'], function() {
+  return bundle();
+});
+gulp.task('build', ['build-persistent'], function() {
+  process.exit(0);
+});
+gulp.task('watch', ['build-persistent'], function() {
+  browserSync({
+    server: {
+      baseDir: './'
+    }
+  });
+
+  getBundler().on('update', function() {
+    gulp.start('build-persistent')
+  });
+});
+
+// WEB SERVER
+// gulp.task('serve', function () {
+//   browserSync({
+//     server: {
+//       baseDir: './'
+//     }
+//   });
 // });
+///////////////////////////////////////////
+
+

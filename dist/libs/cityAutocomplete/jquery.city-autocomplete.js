@@ -1,5 +1,5 @@
-(function ($) {
-    $.fn.cityAutocomplete = function (options) {
+(function ( $ ) {
+    $.fn.cityAutocomplete = function(options) {
         var settings = $.extend({
             show_state: false,
             show_country: false
@@ -8,7 +8,7 @@
         var predictionsDropDown = $('<div class="city-autocomplete"></div>').appendTo('body');
         var input = this;
 
-        input.keyup(function () {
+        input.keyup(function() {
             var searchStr = $(this).val();
 
             if (searchStr.length > 0) {
@@ -18,7 +18,7 @@
                 };
 
                 if (typeof input.attr('data-country') !== "undefined" && input.attr('data-country').length > 0) {
-                    params.componentRestrictions = { country: input.attr('data-country') };
+                    params.componentRestrictions = {country: input.attr('data-country')}
                 }
 
                 autocompleteService.getPlacePredictions(params, updatePredictions);
@@ -27,7 +27,7 @@
             }
         });
 
-        predictionsDropDown.delegate('div', 'click', function () {
+        predictionsDropDown.delegate('div', 'click', function() {
             input.val($(this).find('.city').text());
             input.trigger('change');
             predictionsDropDown.hide();
@@ -39,7 +39,7 @@
             }
         });
 
-        $(window).resize(function () {
+        $(window).resize(function() {
             updatePredictionsDropDownDisplay(predictionsDropDown, input);
         });
 
@@ -52,11 +52,19 @@
             }
 
             predictionsDropDown.empty();
-            $.each(predictions, function (i, prediction) {
+            $.each(predictions, function(i, prediction) {
                 var city = $.fn.cityAutocomplete.transliterate(prediction.terms[0].value),
-                    state = 3 === prediction.terms.length ? $.fn.cityAutocomplete.transliterate(prediction.terms[1].value) : '',
-                    country = 3 === prediction.terms.length ? $.fn.cityAutocomplete.transliterate(prediction.terms[2].value) : $.fn.cityAutocomplete.transliterate(prediction.terms[1].value);
-                var predictionDiv = '<div>' + '<span class="city">' + $.fn.cityAutocomplete.transliterate(prediction.terms[0].value) + '</span>' + (settings.show_state && 0 < state.length ? '<span class="state">' + state + '</span>' : '') + (settings.show_country && 0 < country.length ? '<span class="country">' + country + '</span>' : '') + '</div>';
+                    state = 3 === prediction.terms.length
+                        ? $.fn.cityAutocomplete.transliterate(prediction.terms[1].value)
+                        : '',
+                    country = 3 === prediction.terms.length
+                        ? $.fn.cityAutocomplete.transliterate(prediction.terms[2].value)
+                        : $.fn.cityAutocomplete.transliterate(prediction.terms[1].value);
+                var predictionDiv = '<div>' +
+                    '<span class="city">' + $.fn.cityAutocomplete.transliterate(prediction.terms[0].value) + '</span>' +
+                    (settings.show_state && 0 < state.length ? '<span class="state">' + state + '</span>' : '') +
+                    (settings.show_country && 0 < country.length ? '<span class="country">' + country + '</span>' : '') +
+                    '</div>';
                 predictionsDropDown.append(predictionDiv);
             });
 
@@ -150,4 +158,5 @@
             'top': input.offset().top + input.outerHeight()
         });
     }
-})(jQuery);
+
+}( jQuery ));
