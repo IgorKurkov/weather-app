@@ -22,3 +22,16 @@
 ✔ font!! @done (2018-1-10 23:40:07)
 ☐ get up app on firefox!)) transpile js module
 ☐ change links of cities to listeners that get weather without refresh page
+☐ push to down arrow may move focus to first row in autocomplete dropdown
+☐ @media
+☐ add 10 task to kottans/frontend
+☐ addon for chrome relate tabs from other devices
+☐ got with css compilation files and build fonts of icons from libs/
+☐ when build to dist - del unused files
+☐ square on heart icon change to circle
+☐ Fill => Feel  -5 C° => -5°C   Hudimity => Humidity
+☐ Дата под локейшеном: => mmm DD, YYYY или DD mmm YYYY. Месяц лучше словами
+☐ heart to left, date to right
+☐ heart to blue color
+☐ insert value from autocomplete with country name to fetch request for better searchability
+☐ send to request language of widget than receive city names on different languages
