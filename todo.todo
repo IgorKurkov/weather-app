@@ -35,3 +35,18 @@
 ☐ heart to blue color
 ☐ insert value from autocomplete with country name to fetch request for better searchability
 ☐ send to request language of widget than receive city names on different languages
+Z:
+☐  when view dropdown results - can navigate to them by arrows down - up keyboard or by ckick on dropdown block
+☐ cursor:pointer for clickable elements
+☐ Нажимаю на сердечко — пишет, что город Киев был удален. Непонятно, как он туда попал, непонятно почему нажатие на сердечко оттуда его удаляет. Откуда удален, кстати, тоже непонятно :) И если я n раз нажимаю на кнопку — оно n раз показывает, что город удален. Короче, это какая-то кнопка курильщика :)
+☐ increase size of weather section
+☐ change styles of element by changing classes - not by .style.visibility = "inherit"
+☐ install prettier and make pretty indents
+☐ transfer functionality of visualisation from _listen to _render ande leave only listen foos with imported visuality from _render
+☐ detashe "isInputPopulate" to more simple foos - addhandlers, visuality controls...
+☐  const autocomplete = document.querySelector("div.city-autocomple") move to _selectors file
+☐ return must be on new line  - console.log("you dont type city"); return;
+☐ event.keyCode === 13 - bad. const ENTER = 13; - good
+☐ const convertToCelcius = (F) - F in lowercase
+☐ selectors.mainCity.innerHTML = obj.location.country +", "+ obj.location.region - rewrite with ````
+☐ orkurkov.github.io/weather-app/?=Kiev missing argument after ?
